@@ -1,19 +1,18 @@
 import { useState } from "react";
-import {
-	signInWithGooglePopup,
-	signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
-import "./sign-in-form.styles.scss";
+import {
+	signInAuthUserWithEmailAndPassword,
+	signInWithGooglePopup,
+} from "../../utils/firebase/firebase.utils";
+
+import { SignInContainer, ButtonsContainer } from "./sign-in-form.styles";
 
 const defaultFormFields = {
-	displayName: "",
 	email: "",
 	password: "",
-	confirmPassword: "",
 };
 
 const SignInForm = () => {
@@ -32,22 +31,10 @@ const SignInForm = () => {
 		event.preventDefault();
 
 		try {
-			const { user } = await signInAuthUserWithEmailAndPassword(
-				email,
-				password
-			);
-
+			await signInAuthUserWithEmailAndPassword(email, password);
 			resetFormFields();
 		} catch (error) {
-			switch (error.code) {
-				case "auth/wrong-password":
-					alert("incorrect password");
-					break;
-				case "auth/user-not-found":
-					alert("no user found with this Email");
-					break;
-				default:
-			}
+			console.log("user sign in failed", error);
 		}
 	};
 
@@ -58,10 +45,9 @@ const SignInForm = () => {
 	};
 
 	return (
-		<div className="sign-in-container">
+		<SignInContainer>
 			<h2>Already have an account?</h2>
-			<span>Sign in with your Email and password</span>
-
+			<span>Sign in with your email and password</span>
 			<form onSubmit={handleSubmit}>
 				<FormInput
 					label="Email"
@@ -80,15 +66,18 @@ const SignInForm = () => {
 					name="password"
 					value={password}
 				/>
-
-				<div className="buttons-container">
+				<ButtonsContainer>
 					<Button type="submit">Sign In</Button>
-					<Button type="button" buttonType="google" onClick={signInWithGoogle}>
-						Google Sign In
+					<Button
+						buttonType={BUTTON_TYPE_CLASSES.google}
+						type="button"
+						onClick={signInWithGoogle}
+					>
+						Sign In With Google
 					</Button>
-				</div>
+				</ButtonsContainer>
 			</form>
-		</div>
+		</SignInContainer>
 	);
 };
 
