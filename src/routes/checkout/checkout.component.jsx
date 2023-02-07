@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CartContext } from "../../contexts/cart-dropdown.context";
+import { CartContext } from "../../contexts/cart.context";
 
 import CheckOutItem from "../../components/checkout-item/checkout-item.component";
 
