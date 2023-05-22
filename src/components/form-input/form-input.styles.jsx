@@ -39,7 +39,7 @@ export const Input = styled.input`
 	}
 
 	&:focus ~ ${FormInputLabel} {
-		${shrinkLabelStyles}
+		${shrinkLabelStyles};
 	}
 `;
 

@@ -9,7 +9,6 @@ import {
 	signOut,
 	onAuthStateChanged,
 } from "firebase/auth";
-
 import {
 	getFirestore,
 	doc,
@@ -22,15 +21,16 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyD6wxZr45luZRKDUMAAVSnVOGwTjgQyrnk",
-	authDomain: "crwn-clothing-db-2bc9f.firebaseapp.com",
-	projectId: "crwn-clothing-db-2bc9f",
-	storageBucket: "crwn-clothing-db-2bc9f.appspot.com",
-	messagingSenderId: "596356026557",
-	appId: "1:596356026557:web:879bc230622d296e22a7d4",
+	apiKey: "AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk",
+	authDomain: "crwn-clothing-db-98d4d.firebaseapp.com",
+	projectId: "crwn-clothing-db-98d4d",
+	storageBucket: "crwn-clothing-db-98d4d.appspot.com",
+	messagingSenderId: "626766232035",
+	appId: "1:626766232035:web:506621582dab103a4d08d6",
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
@@ -47,7 +47,8 @@ export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
 	collectionKey,
-	objectsToAdd
+	objectsToAdd,
+	field
 ) => {
 	const collectionRef = collection(db, collectionKey);
 	const batch = writeBatch(db);
@@ -66,13 +67,7 @@ export const getCategoriesAndDocuments = async () => {
 	const q = query(collectionRef);
 
 	const querySnapshot = await getDocs(q);
-	const categoryMap = querySnapshot.docs.reduce((acc, docSnaphot) => {
-		const { title, items } = docSnaphot.data();
-		acc[title.toLowerCase()] = items;
-		return acc;
-	}, {});
-
-	return categoryMap;
+	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 export const createUserDocumentFromAuth = async (
@@ -85,21 +80,19 @@ export const createUserDocumentFromAuth = async (
 
 	const userSnapshot = await getDoc(userDocRef);
 
-	console.log(userSnapshot);
-
 	if (!userSnapshot.exists()) {
 		const { displayName, email } = userAuth;
-		const createAt = new Date();
+		const createdAt = new Date();
 
 		try {
 			await setDoc(userDocRef, {
 				displayName,
 				email,
-				createAt,
+				createdAt,
 				...additionalInformation,
 			});
 		} catch (error) {
-			console.log(error);
+			console.log("error creating the user", error.message);
 		}
 	}
 

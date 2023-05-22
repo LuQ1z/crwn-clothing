@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const BaseButton = styled.button`
-	font-family: "Abel", sans-serif;
 	min-width: 165px;
 	width: auto;
 	height: 50px;
 	letter-spacing: 0.5px;
 	line-height: 50px;
-	padding: 0 35px 0 35px;
+	padding: 0 20px;
 	font-size: 15px;
 	background-color: black;
 	color: white;
 	text-transform: uppercase;
+	font-family: "Roboto", sans-serif;
 	font-weight: bolder;
 	border: none;
 	cursor: pointer;

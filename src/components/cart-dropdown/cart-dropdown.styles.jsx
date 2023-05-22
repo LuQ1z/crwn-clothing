@@ -6,7 +6,7 @@ import {
 	InvertedButton,
 } from "../button/button.styles";
 
-export const CartDropContainer = styled.div`
+export const CartDropdownContainer = styled.div`
 	position: absolute;
 	width: 240px;
 	height: 340px;
@@ -21,8 +21,8 @@ export const CartDropContainer = styled.div`
 
 	${BaseButton},
 	${GoogleSignInButton},
-	${InvertedButton} {
-		margin: auto;
+  ${InvertedButton} {
+		margin-top: auto;
 	}
 `;
 
