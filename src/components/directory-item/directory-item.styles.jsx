@@ -10,7 +10,7 @@ export const BackgroundImage = styled.div`
 
 export const Body = styled.div`
 	height: 90px;
-	padding: 0 5px;
+	padding: 0 25px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -22,7 +22,7 @@ export const Body = styled.div`
 
 	h2 {
 		font-weight: bold;
-		margin: 0 6px 0;
+		margin: 0 15px;
 		font-size: 22px;
 		color: #4a4a4a;
 		text-transform: uppercase;
